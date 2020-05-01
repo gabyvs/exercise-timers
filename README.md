@@ -1,3 +1,8 @@
+Excercise Timers
+================
+
+This is a simple react project that allows you to create interval timers for HIIT routines. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
