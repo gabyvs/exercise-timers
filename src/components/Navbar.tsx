@@ -1,6 +1,5 @@
 import { css } from 'glamor';
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import { theme } from '../theme';
 
 const styles = {

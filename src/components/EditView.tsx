@@ -5,6 +5,7 @@ import { ConfigInterval } from './ConfigInterval';
 
 const styles = {
   container: {
+    width: '100%',
     display: 'grid',
   },
 };

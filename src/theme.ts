@@ -9,4 +9,5 @@ export const theme = {
   // onSecondary: '#323232', // text over background
   // onSecondaryLight: '#565656', // light text over background
   onBackground: '#2d434e',
+  divider: '#dedede',
 };
