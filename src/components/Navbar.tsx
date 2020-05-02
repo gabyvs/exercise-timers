@@ -5,8 +5,8 @@ import { theme } from '../theme';
 
 const styles = {
   logo: {
-    fontSize: '4rem',
-    marginLeft: '2rem',
+    fontSize: '2rem',
+    marginLeft: '1rem',
   },
   navbar: {
     width: '100%',
@@ -14,11 +14,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingRight: '2rem',
   },
   title: {
     color: theme.onPrimary,
-    fontWeight: 600,
     fontSize: '2rem',
     marginLeft: '1rem',
   },
