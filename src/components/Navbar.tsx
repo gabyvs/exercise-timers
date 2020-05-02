@@ -16,14 +16,6 @@ const styles = {
     justifyContent: 'space-between',
     paddingRight: '2rem',
   },
-  btn: {
-    backgroundColor: theme.accent,
-    borderColor: theme.accent,
-    '&:hover': {
-      backgroundColor: theme.accentHover,
-      borderColor: theme.accentHover,
-    },
-  },
 };
 
 export const Navbar = () => {
@@ -32,9 +24,7 @@ export const Navbar = () => {
       <span role={'img'} aria-label={'logo'} {...css(styles.logo)}>
         🏋🏽‍♀️
       </span>
-      <Button variant='primary' {...css(styles.btn)}>
-        Exercise!
-      </Button>
+      <Button variant='primary'>Exercise!</Button>
     </div>
   );
 };
