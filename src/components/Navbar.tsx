@@ -13,8 +13,14 @@ const styles = {
     backgroundColor: theme.primary,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     paddingRight: '2rem',
+  },
+  title: {
+    color: theme.onPrimary,
+    fontWeight: 600,
+    fontSize: '2rem',
+    marginLeft: '1rem',
   },
 };
 
@@ -24,7 +30,7 @@ export const Navbar = () => {
       <span role={'img'} aria-label={'logo'} {...css(styles.logo)}>
         🏋🏽‍♀️
       </span>
-      <Button variant='primary'>Exercise!</Button>
+      <span {...css(styles.title)}>Exercise Timers</span>
     </div>
   );
 };
