@@ -1,6 +1,6 @@
 export const theme = {
   primary: '#2c434e', // bar
-  // secondary: '#f2eff8', // background
+  secondary: '#eaeaea', // background
   background: '#ffffff',
   // accent: '#c5b9da', // buttons over primary, other specials
   // accentDark: '#9886b7', // hover for accent
