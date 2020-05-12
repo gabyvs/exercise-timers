@@ -6,7 +6,7 @@ export const theme = {
   // accentDark: '#9886b7', // hover for accent
   onPrimary: '#ffffff', // text over primary
   onPrimaryLight: '#d3cce0', // light text over primary
-  // onSecondary: '#323232', // text over background
+  onSecondary: '#6b757c', // text over background
   // onSecondaryLight: '#565656', // light text over background
   onBackground: '#2d434e',
   divider: '#dedede',

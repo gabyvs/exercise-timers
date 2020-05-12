@@ -26,8 +26,18 @@ export const EditView = () => {
     <div {...css(styles.container)}>
       <RoutineSelector />
       <div {...css(styles.configArea)}>
-        <ConfigInterval />
-        <ConfigInterval />
+        <ConfigInterval
+          durations={[20, 30, 45, 60]}
+          defaultDuration={30}
+          btnText={'Add Exercise'}
+          showName={true}
+        />
+        <ConfigInterval
+          durations={[5, 10, 60, 90]}
+          defaultDuration={5}
+          btnText={'Add Rest'}
+          showName={false}
+        />
       </div>
       <div {...css(styles.cycleArea)}>
         <Button variant={'outline-secondary'}>Add Cycle</Button>
