@@ -2,7 +2,8 @@ import { css } from 'glamor';
 import React from 'react';
 import { RoutineSelector } from './RoutineSelector';
 import { ConfigInterval } from './ConfigInterval';
-import Button from 'react-bootstrap/Button';
+import { Routine } from '../domain/types';
+import { EditRoutine } from './EditRoutine';
 
 const styles = {
   container: {
@@ -19,6 +20,18 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+};
+
+const routine: Routine = {
+  name: 'Rutina de hoy',
+  intervals: [
+    [
+      { name: 'Run in place', duration: 30 },
+      { name: 'Rest', duration: 5 },
+      { name: 'Push Ups', duration: 30 },
+    ],
+    { name: 'Rest', duration: 90 },
+  ],
 };
 
 export const EditView = () => {
@@ -39,9 +52,7 @@ export const EditView = () => {
           showName={false}
         />
       </div>
-      <div {...css(styles.cycleArea)}>
-        <Button variant={'outline-secondary'}>Add Cycle</Button>
-      </div>
+      <EditRoutine routine={routine} />
     </div>
   );
 };
