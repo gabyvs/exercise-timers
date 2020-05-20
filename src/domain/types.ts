@@ -1,6 +1,6 @@
-type IntervalGroup = Interval[];
+export type IntervalGroup = Interval[];
 
-type Interval = {
+export type Interval = {
   name: string;
   duration: number;
 };

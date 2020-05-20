@@ -31,6 +31,7 @@ const routine: Routine = {
       { name: 'Push Ups', duration: 30 },
     ],
     { name: 'Rest', duration: 90 },
+    { name: 'Jump rope', duration: 30 },
   ],
 };
 

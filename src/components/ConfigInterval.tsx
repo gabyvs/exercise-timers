@@ -1,10 +1,8 @@
-import add from 'date-fns/add';
-import format from 'date-fns/format';
-import startOfDay from 'date-fns/startOfDay';
 import { css } from 'glamor';
 import React from 'react';
 import { theme } from '../theme';
 import Button from 'react-bootstrap/Button';
+import { formatDuration } from '../domain/utils';
 
 const styles = {
   container: {
@@ -57,9 +55,8 @@ interface Props {
 }
 
 export const ConfigInterval = (props: Props) => {
-  const today = startOfDay(new Date());
   const buttons = props.durations.map((duration) => {
-    const label = format(add(today, { seconds: duration }), 'mm:ss');
+    const label = formatDuration(duration);
     return (
       <Button variant={'outline-secondary'} key={duration}>
         {label}
@@ -81,7 +78,7 @@ export const ConfigInterval = (props: Props) => {
           <span className='fas fa-minus' />
         </div>
       </div>
-      <Button variant={'outline-primary'}>{props.btnText}</Button>
+      <Button variant={'secondary'}>{props.btnText}</Button>
     </div>
   );
 };
