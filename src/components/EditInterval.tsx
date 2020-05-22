@@ -16,6 +16,7 @@ const styles = {
     justifyContent: 'center',
     padding: '.5rem',
     width: '15rem',
+    position: 'relative',
   },
   name: {
     textAlign: 'center',
@@ -26,6 +27,11 @@ const styles = {
   duration: {
     textAlign: 'center',
   },
+  checked: {
+    position: 'absolute',
+    top: '.5rem',
+    right: '.5rem',
+  },
 };
 
 interface Props {
@@ -34,9 +40,13 @@ interface Props {
 
 export const EditInterval = (props: Props) => {
   const duration = formatDuration(props.interval.duration);
+  const isSelected = false;
   return (
     <div {...css(styles.container)}>
       <div {...css(styles.interval)}>
+        {isSelected && (
+          <span className='fas fa-check-circle' {...css(styles.checked)} />
+        )}
         <div {...css(styles.name)}>{props.interval.name}</div>
         <div {...css(styles.duration)}>{duration}</div>
       </div>

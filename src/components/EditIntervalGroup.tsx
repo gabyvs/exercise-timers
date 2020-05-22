@@ -14,6 +14,12 @@ const styles = {
     backgroundColor: '#6c757c4d',
     padding: '2rem',
     margin: '1rem',
+    position: 'relative',
+  },
+  checked: {
+    position: 'absolute',
+    top: '.5rem',
+    right: '.5rem',
   },
 };
 
@@ -25,9 +31,15 @@ export const EditIntervalGroup = (props: Props) => {
   const intervals = props.intervalGroup.map((interval, index) => (
     <EditInterval interval={interval} key={index} />
   ));
+  const isSelected = true;
   return (
     <div {...css(styles.container)}>
-      <div {...css(styles.group)}>{intervals}</div>
+      <div {...css(styles.group)}>
+        {isSelected && (
+          <span className='fas fa-check-circle' {...css(styles.checked)} />
+        )}
+        {intervals}
+      </div>
     </div>
   );
 };
