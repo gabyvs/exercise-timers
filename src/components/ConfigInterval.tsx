@@ -1,5 +1,5 @@
 import { css } from 'glamor';
-import React from 'react';
+import React, { useState } from 'react';
 import { theme } from '../theme';
 import Button from 'react-bootstrap/Button';
 import { formatDuration } from '../domain/utils';
@@ -25,6 +25,10 @@ const styles = {
     backgroundColor: 'transparent',
     textAlign: 'center',
     width: '100%',
+    outline: 'none',
+    '&:focus': {
+      borderBottom: `1px solid ${theme.primary}`,
+    },
   },
   durationArea: {
     position: 'relative',
@@ -55,6 +59,7 @@ interface Props {
 }
 
 export const ConfigInterval = (props: Props) => {
+  const [name, updateName] = useState('');
   const buttons = props.durations.map((duration) => {
     const label = formatDuration(duration);
     return (
@@ -67,7 +72,13 @@ export const ConfigInterval = (props: Props) => {
     <div {...css(styles.container)}>
       <div {...css(styles.btnsArea)}>{buttons}</div>
       {props.showName ? (
-        <input type={'text'} placeholder={'Name'} {...css(styles.input)} />
+        <input
+          type={'text'}
+          placeholder={'Name'}
+          {...css(styles.input)}
+          value={name}
+          onChange={(e) => updateName(e.target.value)}
+        />
       ) : (
         <div />
       )}
