@@ -9,3 +9,8 @@ export type Routine = {
   name: string;
   intervals: (Interval | IntervalGroup)[];
 };
+
+export type Duration = {
+  minutes: number;
+  seconds: number;
+};

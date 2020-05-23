@@ -2,7 +2,13 @@ import { css } from 'glamor';
 import React, { useState } from 'react';
 import { theme } from '../theme';
 import Button from 'react-bootstrap/Button';
-import { formatDuration, formatTime } from '../domain/utils';
+import {
+  add5Seconds,
+  formatDuration,
+  formatTime,
+  subtract5Seconds,
+} from '../domain/utils';
+import { Duration } from '../domain/types';
 
 const styles = {
   container: {
@@ -59,6 +65,7 @@ const styles = {
       fontSize: '.5rem',
       '&:hover': {
         backgroundColor: 'lightgray',
+        cursor: 'pointer',
       },
     },
   },
@@ -84,6 +91,16 @@ export const ConfigInterval = (props: Props) => {
       </Button>
     );
   });
+
+  const change = (callback: (d: Duration) => Duration) => {
+    const newDuration = callback({
+      minutes: parseInt(minutes),
+      seconds: parseInt(seconds),
+    });
+    updateMinutes(formatTime(newDuration.minutes));
+    updateSeconds(formatTime(newDuration.seconds));
+  };
+
   return (
     <div {...css(styles.container)}>
       <div {...css(styles.btnsArea)}>{buttons}</div>
@@ -117,8 +134,11 @@ export const ConfigInterval = (props: Props) => {
           onChange={(e) => updateSeconds(formatTime(e.target.value))}
         />
         <div {...css(styles.durationBtns)}>
-          <span className='fas fa-plus' />
-          <span className='fas fa-minus' />
+          <span className='fas fa-plus' onClick={() => change(add5Seconds)} />
+          <span
+            className='fas fa-minus'
+            onClick={() => change(subtract5Seconds)}
+          />
         </div>
       </div>
       <Button variant={'secondary'}>{props.btnText}</Button>
