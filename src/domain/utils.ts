@@ -1,4 +1,10 @@
-import { IntervalGroup, Interval, Duration } from './types';
+import {
+  IntervalGroup,
+  Interval,
+  Duration,
+  IntervalType,
+  Routine,
+} from './types';
 import startOfDay from 'date-fns/startOfDay';
 import format from 'date-fns/format';
 import add from 'date-fns/add';
@@ -13,6 +19,14 @@ export function isIntervalGroup(
   value: Interval | IntervalGroup
 ): value is IntervalGroup {
   return Array.isArray(value);
+}
+
+export function isExercise(type: IntervalType): boolean {
+  return type === 'exercise';
+}
+
+export function isRest(type: IntervalType): boolean {
+  return type === 'rest';
 }
 
 export function formatDuration(seconds: number): string {
@@ -51,4 +65,11 @@ export function subtract5Seconds(current: Duration): Duration {
     }
     return { minutes: 0, seconds: 0 };
   }
+}
+
+export function addIntervalToRoutine(
+  routine: Routine,
+  interval: Interval
+): Routine {
+  return { ...routine, intervals: [...routine.intervals, interval] };
 }

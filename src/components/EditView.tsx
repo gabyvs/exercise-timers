@@ -1,9 +1,10 @@
 import { css } from 'glamor';
-import React from 'react';
+import React, { useState } from 'react';
 import { RoutineSelector } from './RoutineSelector';
 import { ConfigInterval } from './ConfigInterval';
-import { Routine } from '../domain/types';
+import { Routine, Interval } from '../domain/types';
 import { EditRoutine } from './EditRoutine';
+import { addIntervalToRoutine } from '../domain/utils';
 
 const styles = {
   container: {
@@ -22,20 +23,26 @@ const styles = {
   },
 };
 
-const routine: Routine = {
+const initialRoutine: Routine = {
   name: 'Rutina de hoy',
   intervals: [
     [
-      { name: 'Run in place', duration: 30 },
-      { name: 'Rest', duration: 5 },
-      { name: 'Push Ups', duration: 30 },
+      { name: 'Run in place', duration: 30, type: 'exercise' },
+      { name: 'Rest', duration: 5, type: 'rest' },
+      { name: 'Push Ups', duration: 30, type: 'exercise' },
     ],
-    { name: 'Rest', duration: 90 },
-    { name: 'Jump rope', duration: 30 },
+    { name: 'Rest', duration: 90, type: 'rest' },
+    { name: 'Jump rope', duration: 30, type: 'exercise' },
   ],
 };
 
 export const EditView = () => {
+  const [routine, updateRoutine] = useState(initialRoutine);
+
+  const addInterval = (interval: Interval) => {
+    updateRoutine(addIntervalToRoutine(routine, interval));
+  };
+
   return (
     <div {...css(styles.container)}>
       <RoutineSelector />
@@ -43,14 +50,14 @@ export const EditView = () => {
         <ConfigInterval
           durations={[20, 30, 45, 60]}
           defaultDuration={30}
-          btnText={'Add Exercise'}
-          showName={true}
+          type={'exercise'}
+          onAddInterval={addInterval}
         />
         <ConfigInterval
           durations={[5, 10, 60, 90]}
           defaultDuration={5}
-          btnText={'Add Rest'}
-          showName={false}
+          type={'rest'}
+          onAddInterval={addInterval}
         />
       </div>
       <EditRoutine routine={routine} />

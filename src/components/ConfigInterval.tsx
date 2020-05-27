@@ -6,9 +6,10 @@ import {
   add5Seconds,
   formatDuration,
   formatTime,
+  isExercise,
   subtract5Seconds,
 } from '../domain/utils';
-import { Duration } from '../domain/types';
+import { Duration, Interval, IntervalType } from '../domain/types';
 
 const styles = {
   container: {
@@ -73,9 +74,9 @@ const styles = {
 
 interface Props {
   durations: number[];
-  btnText?: string;
+  onAddInterval: (interval: Interval) => void;
+  type: IntervalType;
   defaultDuration?: number;
-  showName?: boolean;
 }
 
 export const ConfigInterval = (props: Props) => {
@@ -97,6 +98,18 @@ export const ConfigInterval = (props: Props) => {
     updateSeconds(formatTime(newDuration.seconds));
   };
 
+  const addInterval = () => {
+    const duration = parseInt(minutes) * 60 + parseInt(seconds);
+    props.onAddInterval({
+      name: props.type === 'rest' ? 'Rest' : name,
+      type: props.type,
+      duration,
+    });
+    updateName('');
+    updateMinutes('00');
+    updateSeconds('00');
+  };
+
   const buttons = props.durations.map((duration) => {
     const label = formatDuration(duration);
     return (
@@ -113,7 +126,7 @@ export const ConfigInterval = (props: Props) => {
   return (
     <div {...css(styles.container)}>
       <div {...css(styles.btnsArea)}>{buttons}</div>
-      {props.showName ? (
+      {isExercise(props.type) ? (
         <input
           type={'text'}
           placeholder={'Name'}
@@ -150,7 +163,9 @@ export const ConfigInterval = (props: Props) => {
           />
         </div>
       </div>
-      <Button variant={'secondary'}>{props.btnText}</Button>
+      <Button variant={'secondary'} onClick={addInterval}>
+        {isExercise(props.type) ? 'Add Exercise' : 'Add Rest'}
+      </Button>
     </div>
   );
 };
