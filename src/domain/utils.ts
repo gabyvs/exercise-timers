@@ -23,10 +23,11 @@ export function formatTime(time: string | number | undefined): string {
   if (time === undefined) return '00';
   const num = typeof time === 'number' ? time : parseInt(time);
   if (isFinite(num)) {
-    if (num < 0) return '00';
-    if (num < 10) return '0' + num;
-    if (num > 59) return '59';
-    return num.toString();
+    const int = Math.floor(num);
+    if (int < 0) return '00';
+    if (int < 10) return '0' + int;
+    if (int > 59) return '59';
+    return int.toString();
   }
   return '00';
 }

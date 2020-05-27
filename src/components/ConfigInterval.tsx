@@ -83,14 +83,10 @@ export const ConfigInterval = (props: Props) => {
   const [minutes, updateMinutes] = useState('00');
   const [seconds, updateSeconds] = useState('00');
 
-  const buttons = props.durations.map((duration) => {
-    const label = formatDuration(duration);
-    return (
-      <Button variant={'outline-secondary'} key={duration}>
-        {label}
-      </Button>
-    );
-  });
+  const setDuration = (seconds: number) => {
+    updateMinutes(formatTime(seconds / 60));
+    updateSeconds(formatTime(seconds % 60));
+  };
 
   const change = (callback: (d: Duration) => Duration) => {
     const newDuration = callback({
@@ -100,6 +96,19 @@ export const ConfigInterval = (props: Props) => {
     updateMinutes(formatTime(newDuration.minutes));
     updateSeconds(formatTime(newDuration.seconds));
   };
+
+  const buttons = props.durations.map((duration) => {
+    const label = formatDuration(duration);
+    return (
+      <Button
+        variant={'outline-secondary'}
+        key={duration}
+        onClick={() => setDuration(duration)}
+      >
+        {label}
+      </Button>
+    );
+  });
 
   return (
     <div {...css(styles.container)}>
