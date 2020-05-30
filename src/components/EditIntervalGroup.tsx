@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IntervalGroup } from '../domain/types';
 import { css } from 'glamor';
 import { EditInterval } from './EditInterval';
@@ -11,10 +11,23 @@ const styles = {
   },
   group: {
     border: `1px solid ${theme.divider}`,
-    backgroundColor: '#6c757c4d',
+    backgroundColor: 'rgba(108,117,124,0.3)',
     padding: '2rem',
     margin: '1rem',
     position: 'relative',
+    '&.selected': {
+      backgroundColor: 'rgba(108,117,124,0.5)',
+    },
+    '& .checkIcon': {
+      display: 'none',
+    },
+    '&:hover': {
+      cursor: 'pointer',
+      backgroundColor: 'rgba(108,117,124,0.5)',
+      '& .checkIcon': {
+        display: 'block',
+      },
+    },
   },
   checked: {
     position: 'absolute',
@@ -25,18 +38,32 @@ const styles = {
 
 interface Props {
   intervalGroup: IntervalGroup;
+  onToggle: (group: IntervalGroup, isSelected: boolean) => void;
 }
 
 export const EditIntervalGroup = (props: Props) => {
-  const intervals = props.intervalGroup.map((interval, index) => (
-    <EditInterval interval={interval} key={index} />
+  const [selected, updateSelected] = useState(false);
+  const intervals = props.intervalGroup.intervals.map((interval) => (
+    <EditInterval interval={interval} key={interval.id} />
   ));
-  const isSelected = true;
+
+  const onClick = () => {
+    const newState = !selected;
+    updateSelected(newState);
+    props.onToggle(props.intervalGroup, newState);
+  };
+
   return (
     <div {...css(styles.container)}>
-      <div {...css(styles.group)}>
-        {isSelected && (
+      <div
+        {...css(styles.group)}
+        onClick={onClick}
+        className={selected ? 'selected' : ''}
+      >
+        {selected ? (
           <span className='fas fa-check-circle' {...css(styles.checked)} />
+        ) : (
+          <span className='far fa-circle checkIcon' {...css(styles.checked)} />
         )}
         {intervals}
       </div>

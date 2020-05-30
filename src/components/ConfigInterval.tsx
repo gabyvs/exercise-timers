@@ -101,6 +101,7 @@ export const ConfigInterval = (props: Props) => {
   const addInterval = () => {
     const duration = parseInt(minutes) * 60 + parseInt(seconds);
     props.onAddInterval({
+      id: Date.now(),
       name: props.type === 'rest' ? 'Rest' : name,
       type: props.type,
       duration,

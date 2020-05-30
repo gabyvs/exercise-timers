@@ -18,7 +18,7 @@ export function isInterval(value: Interval | IntervalGroup): value is Interval {
 export function isIntervalGroup(
   value: Interval | IntervalGroup
 ): value is IntervalGroup {
-  return Array.isArray(value);
+  return !!((value as unknown) as IntervalGroup).intervals;
 }
 
 export function isExercise(type: IntervalType): boolean {

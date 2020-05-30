@@ -26,13 +26,16 @@ const styles = {
 const initialRoutine: Routine = {
   name: 'Rutina de hoy',
   intervals: [
-    [
-      { name: 'Run in place', duration: 30, type: 'exercise' },
-      { name: 'Rest', duration: 5, type: 'rest' },
-      { name: 'Push Ups', duration: 30, type: 'exercise' },
-    ],
-    { name: 'Rest', duration: 90, type: 'rest' },
-    { name: 'Jump rope', duration: 30, type: 'exercise' },
+    {
+      id: 1,
+      intervals: [
+        { name: 'Run in place', duration: 30, type: 'exercise', id: 1 },
+        { name: 'Rest', duration: 5, type: 'rest', id: 2 },
+        { name: 'Push Ups', duration: 30, type: 'exercise', id: 3 },
+      ],
+    },
+    { name: 'Rest', duration: 90, type: 'rest', id: 4 },
+    { name: 'Jump rope', duration: 30, type: 'exercise', id: 5 },
   ],
 };
 
