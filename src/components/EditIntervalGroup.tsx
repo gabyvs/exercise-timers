@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IntervalGroup } from '../domain/types';
+import { IntervalGroup, Interval } from '../domain/types';
 import { css } from 'glamor';
 import { EditInterval } from './EditInterval';
 import { theme } from '../theme';
@@ -24,10 +24,13 @@ const styles = {
     '&:hover': {
       cursor: 'pointer',
       backgroundColor: 'rgba(108,117,124,0.5)',
-      '& .checkIcon': {
+      '& > .checkIcon': {
         display: 'block',
       },
     },
+  },
+  members: {
+    pointerEvents: 'none',
   },
   checked: {
     position: 'absolute',
@@ -38,19 +41,24 @@ const styles = {
 
 interface Props {
   intervalGroup: IntervalGroup;
-  onToggle: (group: IntervalGroup, isSelected: boolean) => void;
+  onToggleInterval: (interval: Interval, isSelected: boolean) => void;
+  onToggleGroup: (group: IntervalGroup, isSelected: boolean) => void;
 }
 
 export const EditIntervalGroup = (props: Props) => {
   const [selected, updateSelected] = useState(false);
   const intervals = props.intervalGroup.intervals.map((interval) => (
-    <EditInterval interval={interval} key={interval.id} />
+    <EditInterval
+      interval={interval}
+      key={interval.id}
+      onToggle={props.onToggleInterval}
+    />
   ));
 
   const onClick = () => {
     const newState = !selected;
     updateSelected(newState);
-    props.onToggle(props.intervalGroup, newState);
+    props.onToggleGroup(props.intervalGroup, newState);
   };
 
   return (
@@ -65,7 +73,7 @@ export const EditIntervalGroup = (props: Props) => {
         ) : (
           <span className='far fa-circle checkIcon' {...css(styles.checked)} />
         )}
-        {intervals}
+        <div {...css(styles.members)}>{intervals}</div>
       </div>
     </div>
   );

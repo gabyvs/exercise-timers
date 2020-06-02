@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IntervalGroup, Routine } from '../domain/types';
+import { IntervalGroup, Interval, Routine } from '../domain/types';
 import { isIntervalGroup } from '../domain/utils';
 import { EditIntervalGroup } from './EditIntervalGroup';
 import { EditInterval } from './EditInterval';
@@ -42,16 +42,34 @@ export const EditRoutine = (props: Props) => {
     updateIsGroupSelected(updated.length > 0);
   };
 
+  const onToggleInterval = (interval: Interval, isSelected: boolean) => {
+    let updated: Interval[];
+    if (isSelected) {
+      updated = [...selectedIntervals, interval];
+    } else {
+      updated = selectedIntervals.filter((s) => s.id !== interval.id);
+    }
+    updateSelectedIntervals(updated);
+    updateIsIntervalSelected(updated.length > 0);
+  };
+
   const intervals = props.routine.intervals.map((interval, index: number) => {
     if (isIntervalGroup(interval))
       return (
         <EditIntervalGroup
           intervalGroup={interval}
           key={index}
-          onToggle={onToggleGroup}
+          onToggleGroup={onToggleGroup}
+          onToggleInterval={onToggleInterval}
         />
       );
-    return <EditInterval interval={interval} key={index} />;
+    return (
+      <EditInterval
+        interval={interval}
+        key={index}
+        onToggle={onToggleInterval}
+      />
+    );
   });
   return (
     <div>
