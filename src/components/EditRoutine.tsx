@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IntervalGroup, Interval, Routine } from '../domain/types';
-import { isIntervalGroup } from '../domain/utils';
+import { isInterval, isIntervalGroup } from '../domain/utils';
 import { EditIntervalGroup } from './EditIntervalGroup';
 import { EditInterval } from './EditInterval';
 import Button from 'react-bootstrap/Button';
@@ -53,23 +53,27 @@ export const EditRoutine = (props: Props) => {
     updateIsIntervalSelected(updated.length > 0);
   };
 
+  const onToggle = (
+    intervalOrGroup: Interval | IntervalGroup,
+    isSelected: boolean
+  ) => {
+    if (isInterval(intervalOrGroup)) {
+      onToggleInterval(intervalOrGroup, isSelected);
+    } else {
+      onToggleGroup(intervalOrGroup, isSelected);
+    }
+  };
+
   const intervals = props.routine.intervals.map((interval, index: number) => {
     if (isIntervalGroup(interval))
       return (
         <EditIntervalGroup
           intervalGroup={interval}
           key={index}
-          onToggleGroup={onToggleGroup}
-          onToggleInterval={onToggleInterval}
+          onToggle={onToggle}
         />
       );
-    return (
-      <EditInterval
-        interval={interval}
-        key={index}
-        onToggle={onToggleInterval}
-      />
-    );
+    return <EditInterval interval={interval} key={index} onToggle={onToggle} />;
   });
   return (
     <div>
