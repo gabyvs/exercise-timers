@@ -10,7 +10,6 @@ const styles = {
     border: `1px solid ${theme.divider}`,
     backgroundColor: 'rgba(108,117,124,0.3)',
     padding: '2rem',
-    margin: '1rem',
   },
   members: {
     pointerEvents: 'none',

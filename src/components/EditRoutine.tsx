@@ -14,10 +14,15 @@ const styles = {
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
-    height: '2rem',
+    height: '2.4rem',
+    marginBottom: '1rem',
   },
   btn: {
     margin: '0 .5rem',
+  },
+  intervalContainer: {
+    display: 'grid',
+    gridRowGap: '.5rem',
   },
 };
 
@@ -132,7 +137,7 @@ export const EditRoutine = (props: Props) => {
           </Button>
         )}
       </div>
-      <div>{intervals}</div>
+      <div {...css(styles.intervalContainer)}>{intervals}</div>
     </div>
   );
 };
