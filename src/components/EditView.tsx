@@ -63,7 +63,7 @@ export const EditView = () => {
           onAddInterval={addInterval}
         />
       </div>
-      <EditRoutine routine={routine} />
+      <EditRoutine routine={routine} updateRoutine={updateRoutine} />
     </div>
   );
 };

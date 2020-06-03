@@ -73,3 +73,13 @@ export function addIntervalToRoutine(
 ): Routine {
   return { ...routine, intervals: [...routine.intervals, interval] };
 }
+
+export function removeFromRoutine(
+  intervals: (Interval | IntervalGroup)[],
+  routine: Routine
+): Routine {
+  const updated = routine.intervals.filter((i) => {
+    return !intervals.find((ri) => ri.id === i.id);
+  });
+  return { ...routine, intervals: updated };
+}

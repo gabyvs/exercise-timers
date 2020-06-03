@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { IntervalGroup, Interval, Routine } from '../domain/types';
-import { isInterval, isIntervalGroup } from '../domain/utils';
+import {
+  isInterval,
+  isIntervalGroup,
+  removeFromRoutine,
+} from '../domain/utils';
 import { EditIntervalGroup } from './EditIntervalGroup';
 import { EditInterval } from './EditInterval';
 import Button from 'react-bootstrap/Button';
@@ -19,6 +23,7 @@ const styles = {
 
 interface Props {
   routine: Routine;
+  updateRoutine: (routine: Routine) => void;
 }
 
 export const EditRoutine = (props: Props) => {
@@ -64,6 +69,15 @@ export const EditRoutine = (props: Props) => {
     }
   };
 
+  const onDelete = () => {
+    props.updateRoutine(
+      removeFromRoutine(
+        [...selectedIntervals, ...selectedGroups],
+        props.routine
+      )
+    );
+  };
+
   const intervals = props.routine.intervals.map((interval, index: number) => {
     if (isIntervalGroup(interval))
       return (
@@ -78,24 +92,17 @@ export const EditRoutine = (props: Props) => {
   return (
     <div>
       <div {...css(styles.buttonContainer)}>
-        {(isGroupSelected || isIntervalSelected) && (
-          <Button
-            variant={'outline-secondary'}
-            key={'delete'}
-            {...css(styles.btn)}
-          >
-            Delete
-          </Button>
-        )}
-        {isIntervalSelected && !isGroupSelected && (
-          <Button
-            variant={'outline-secondary'}
-            key={'group'}
-            {...css(styles.btn)}
-          >
-            Group
-          </Button>
-        )}
+        {isIntervalSelected &&
+          !isGroupSelected &&
+          selectedIntervals.length > 1 && (
+            <Button
+              variant={'outline-secondary'}
+              key={'group'}
+              {...css(styles.btn)}
+            >
+              Group
+            </Button>
+          )}
         {isGroupSelected && !isIntervalSelected && (
           <Button
             variant={'outline-secondary'}
@@ -103,6 +110,16 @@ export const EditRoutine = (props: Props) => {
             {...css(styles.btn)}
           >
             Ungroup
+          </Button>
+        )}
+        {(isGroupSelected || isIntervalSelected) && (
+          <Button
+            variant={'outline-secondary'}
+            key={'delete'}
+            {...css(styles.btn)}
+            onClick={onDelete}
+          >
+            Delete
           </Button>
         )}
         {(isIntervalSelected || isGroupSelected) && (
